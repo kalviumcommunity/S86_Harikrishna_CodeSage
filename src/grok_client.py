@@ -27,8 +27,7 @@ with st.sidebar.expander("How to Use 🛠️"):
     st.markdown("""
     1. Paste code in the editor below.  
     2. Click **Explain**.  
-    3. View AI explanation.  
-                
+    3. View AI explanation.
     4. Complexity metrics shown automatically.  
     """)
 
@@ -36,8 +35,7 @@ with st.sidebar.expander("Quick Tips 💡"):
     st.markdown("""
     - Use **CoT** for step-by-step reasoning.  
     - Adjust **Temperature** for creativity.  
-    - **Top-P** controls randomness
-                .  
+    - **Top-P** controls randomness  
     - Clean code ensures better AI explanations.
     """)
 
@@ -48,7 +46,9 @@ if st.sidebar.button("Change Preferences ⚙️"):
 with st.sidebar.expander("Helpful Resources 🔗"):
     st.markdown("""
     - [Groq LLM Docs](https://docs.groq.com/)  
+                
     - [Python Official Docs](https://docs.python.org/3/)  
+                
     - [Cyclomatic Complexity Guide](https://en.wikipedia.org/wiki/Cyclomatic_complexity)
     """)
 
@@ -108,7 +108,7 @@ if st.session_state.page == "Settings":
 # Main Page
 # ------------------------
 else:
-    
+
     st.title("CodeSage: AI Code Explainer")
 
     # IDE-like text area for code input

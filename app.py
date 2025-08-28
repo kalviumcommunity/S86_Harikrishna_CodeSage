@@ -28,12 +28,13 @@ with st.sidebar.expander("How to Use 🛠️"):
     1. Paste code in the editor below.  
     2. Click **Explain**.  
     3. View AI explanation below.  
-    4. Complexity metrics shown automatically.  
+    4. Complexity metrics shown automatically.
+    5. Save explanations and metrics locally.  
     """)
 
 with st.sidebar.expander("Quick Tips 💡"):
     st.markdown("""
-    - Use **CoT** for step-by-step reasoning.  
+    - Use **CoT** for step-by-step reasoning  
     - Adjust **Temperature** for creativity.  
     - **Top-P** controls randomness. 
  
