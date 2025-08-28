@@ -24,6 +24,7 @@ with st.sidebar.expander("Project Overview"):
     """)
 
 with st.sidebar.expander("How to Use 🛠️"):
+
     st.markdown("""
     1. Paste code in the editor below.  
     2. Click **Explain**.  
@@ -33,6 +34,7 @@ with st.sidebar.expander("How to Use 🛠️"):
     """)
 
 with st.sidebar.expander("Quick Tips 💡"):
+
     st.markdown("""
     - Use **CoT** for step-by-step reasoning  
     - Adjust **Temperature** for creativity.  
@@ -42,6 +44,7 @@ with st.sidebar.expander("Quick Tips 💡"):
     """)
 
 st.sidebar.markdown("---")
+
 if st.sidebar.button("Change Preferences ⚙️"):
     st.session_state.page = "Settings"
 
@@ -83,6 +86,7 @@ if "model" not in st.session_state:
 # Settings Page
 # ------------------------
 if st.session_state.page == "Settings":
+
     st.title("Settings / Preferences")
 
     st.session_state.prompt_type = st.selectbox(
@@ -125,6 +129,7 @@ else:
     # IDE-like text_area for real-time input
 
     code_input = st.text_area(
+
         "Paste your code here:",
         height=400,
 
@@ -135,6 +140,7 @@ else:
     if st.button("Explain"):
 
         if not code_input.strip():
+            
             st.warning("Please enter some code to explain.")
         else:
             # Build prompt based on settings
@@ -154,7 +160,7 @@ else:
             # Count tokens
 
             tokens = token_logger.log_tokens(code_input)
-            
+
             st.write(f"Tokens used for input: {tokens}")
 
             # Placeholder for streaming AI output

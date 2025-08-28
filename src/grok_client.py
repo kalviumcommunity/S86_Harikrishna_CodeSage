@@ -45,9 +45,11 @@ with st.sidebar.expander("Quick Tips 💡"):
 
 st.sidebar.markdown("---")
 if st.sidebar.button("Change Preferences ⚙️"):
+
     st.session_state.page = "Settings"
 
 with st.sidebar.expander("Helpful Resources 🔗"):
+
     st.markdown("""
     - [Groq LLM Docs](https://docs.groq.com/)  
                 
@@ -129,6 +131,7 @@ else:
 
     code_input = st.text_area(
         "Paste your code here:",
+        
         height=400,
         placeholder="Write or paste your code here...",
         key="code_input"
