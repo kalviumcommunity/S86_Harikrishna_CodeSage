@@ -18,6 +18,7 @@ st.sidebar.title("About CodeSage 🚀")
 with st.sidebar.expander("Project Overview"):
     st.markdown("""
     - Explain any code in plain English  
+    - Customizable explanation styles & depths
     - Step-by-step reasoning and structured output  
     - Estimates code complexity (LOC, Cyclomatic & Execution Time)
     """)
@@ -27,6 +28,7 @@ with st.sidebar.expander("How to Use 🛠️"):
     1. Paste code in the editor below.  
     2. Click **Explain**.  
     3. View AI explanation.  
+                
     4. Complexity metrics shown automatically.  
     """)
 
@@ -34,7 +36,8 @@ with st.sidebar.expander("Quick Tips 💡"):
     st.markdown("""
     - Use **CoT** for step-by-step reasoning.  
     - Adjust **Temperature** for creativity.  
-    - **Top-P** controls randomness.  
+    - **Top-P** controls randomness
+                .  
     - Clean code ensures better AI explanations.
     """)
 
@@ -105,6 +108,7 @@ if st.session_state.page == "Settings":
 # Main Page
 # ------------------------
 else:
+    
     st.title("CodeSage: AI Code Explainer")
 
     # IDE-like text area for code input
