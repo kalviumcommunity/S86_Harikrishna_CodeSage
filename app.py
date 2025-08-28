@@ -75,7 +75,7 @@ if "top_p" not in st.session_state:
 
 if "stop_seq" not in st.session_state:
     st.session_state.stop_seq = ""
-    
+
 if "model" not in st.session_state:
     st.session_state.model = "llama-3.1-8b-instant"
 
@@ -118,6 +118,7 @@ else:
     st.title("CodeSage: AI Code Explainer")
 
     # IDE-like text_area for real-time input
+
     code_input = st.text_area(
         "Paste your code here:",
         height=400,
@@ -130,6 +131,7 @@ else:
             st.warning("Please enter some code to explain.")
         else:
             # Build prompt based on settings
+
             if st.session_state.prompt_type == "Zero-Shot":
                 messages = groq_client.zero_shot_prompt(
                     code_input, style=st.session_state.style, depth=st.session_state.depth)
@@ -141,14 +143,17 @@ else:
                     code_input, style=st.session_state.style, depth=st.session_state.depth)
 
             # Count tokens
+
             tokens = token_logger.log_tokens(code_input)
             st.write(f"Tokens used for input: {tokens}")
 
             # Placeholder for streaming AI output
+
             explanation_placeholder = st.empty()
             full_text = ""
 
             # Call LLM and stream
+
             start_time = time.time()
             try:
                 for chunk in groq_client.call_groq_llm_stream(messages, temperature=st.session_state.temperature, top_p=st.session_state.top_p, stop_sequence=st.session_state.stop_seq):
@@ -159,12 +164,14 @@ else:
                 end_time = time.time()
 
                 # Complexity metrics
+
                 comp = complexity.estimate_complexity(code_input)
                 comp['execution_time_sec'] = round(end_time - start_time, 4)
                 st.subheader("Code Complexity")
                 st.json(comp)
 
                 # Save output
+                
                 os.makedirs("output/explanations", exist_ok=True)
                 with open("output/explanations/explanation.json", "w") as f:
                     json.dump({"ai_output": full_text,

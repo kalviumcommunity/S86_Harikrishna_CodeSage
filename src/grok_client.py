@@ -79,7 +79,7 @@ if "top_p" not in st.session_state:
 
 if "stop_seq" not in st.session_state:
     st.session_state.stop_seq = ""
-    
+
 if "model" not in st.session_state:
     st.session_state.model = "llama-3.1-8b-instant"
 
@@ -123,6 +123,7 @@ else:
     st.title("CodeSage: AI Code Explainer")
 
     # IDE-like text area for code input
+    
     code_input = st.text_area(
         "Paste your code here:",
         height=400,
@@ -135,6 +136,7 @@ else:
             st.warning("Please enter some code to explain.")
         else:
             # Build prompt based on settings
+
             if st.session_state.prompt_type == "Zero-Shot":
                 messages = groq_client.zero_shot_prompt(code_input,
                                                         style=st.session_state.style,
@@ -149,16 +151,19 @@ else:
                                                         depth=st.session_state.depth)
 
             # Count tokens
+
             tokens = token_logger.log_tokens(code_input)
             st.write(f"Tokens used for input: {tokens}")
 
             # Placeholder for streaming explanation
+
             explanation_placeholder = st.empty()
             full_text = ""
             start_time = time.time()
 
             try:
                 # Stream AI output
+
                 for chunk in groq_client.call_groq_llm_stream(
                         messages,
                         temperature=st.session_state.temperature,
@@ -166,6 +171,7 @@ else:
                         stop_sequence=st.session_state.stop_seq):
                     full_text += chunk
                     # Auto-expanding text area
+
                     explanation_placeholder.text_area("AI Explanation", value=full_text,
                                                       height=max(300, len(full_text)//2))
 
