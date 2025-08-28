@@ -127,11 +127,13 @@ else:
     code_input = st.text_area(
         "Paste your code here:",
         height=400,
+
         max_chars=None,
         placeholder="Write or paste your code here...",
     )
 
     if st.button("Explain"):
+
         if not code_input.strip():
             st.warning("Please enter some code to explain.")
         else:
@@ -152,6 +154,7 @@ else:
             # Count tokens
 
             tokens = token_logger.log_tokens(code_input)
+            
             st.write(f"Tokens used for input: {tokens}")
 
             # Placeholder for streaming AI output
@@ -165,6 +168,7 @@ else:
             try:
                 for chunk in groq_client.call_groq_llm_stream(messages, temperature=st.session_state.temperature, top_p=st.session_state.top_p, stop_sequence=st.session_state.stop_seq):
                     full_text += chunk
+
                     explanation_placeholder.text_area(
                         "AI Explanation", value=full_text, height=max(300, len(full_text)//2))
 
@@ -181,6 +185,7 @@ else:
 
                 os.makedirs("output/explanations", exist_ok=True)
                 with open("output/explanations/explanation.json", "w") as f:
+
                     json.dump({"ai_output": full_text,
                               "local_complexity": comp}, f, indent=2)
 
