@@ -105,10 +105,13 @@ if st.session_state.page == "Settings":
     )
     st.session_state.temperature = st.slider(
         "Temperature", 0.0, 1.0, st.session_state.temperature)
+    
     st.session_state.top_p = st.slider(
         "Top P", 0.0, 1.0, st.session_state.top_p)
+    
     st.session_state.stop_seq = st.text_input(
         "Stop Sequence (optional)", st.session_state.stop_seq)
+    
     st.session_state.model = st.selectbox(
         "Model", ["llama-3.1-8b-instant"], index=0)
 
@@ -123,7 +126,7 @@ else:
     st.title("CodeSage: AI Code Explainer")
 
     # IDE-like text area for code input
-    
+
     code_input = st.text_area(
         "Paste your code here:",
         height=400,
@@ -140,14 +143,17 @@ else:
             if st.session_state.prompt_type == "Zero-Shot":
                 messages = groq_client.zero_shot_prompt(code_input,
                                                         style=st.session_state.style,
+
                                                         depth=st.session_state.depth)
             elif st.session_state.prompt_type == "Chain-of-Thought (CoT)":
                 messages = groq_client.cot_prompt(code_input,
                                                   style=st.session_state.style,
+
                                                   depth=st.session_state.depth)
             else:
                 messages = groq_client.zero_shot_prompt(code_input,
                                                         style=st.session_state.style,
+
                                                         depth=st.session_state.depth)
 
             # Count tokens
@@ -158,6 +164,7 @@ else:
             # Placeholder for streaming explanation
 
             explanation_placeholder = st.empty()
+
             full_text = ""
             start_time = time.time()
 
