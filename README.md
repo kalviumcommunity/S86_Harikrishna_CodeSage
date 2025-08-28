@@ -124,7 +124,7 @@ The script:
 
 ---
 
-
+    
 ## 🏷 License
 
 MIT License. Free for personal & commercial use.
