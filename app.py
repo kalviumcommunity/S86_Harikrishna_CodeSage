@@ -57,18 +57,25 @@ with st.sidebar.expander("Helpful Resources 🔗"):
 # ------------------------
 if "page" not in st.session_state:
     st.session_state.page = "Main"
+
 if "style" not in st.session_state:
     st.session_state.style = "Professional"
+
 if "depth" not in st.session_state:
     st.session_state.depth = "medium"
+
 if "prompt_type" not in st.session_state:
     st.session_state.prompt_type = "Zero-Shot"
+
 if "temperature" not in st.session_state:
     st.session_state.temperature = 0.2
+
 if "top_p" not in st.session_state:
     st.session_state.top_p = 0.9
+
 if "stop_seq" not in st.session_state:
     st.session_state.stop_seq = ""
+    
 if "model" not in st.session_state:
     st.session_state.model = "llama-3.1-8b-instant"
 
