@@ -75,7 +75,7 @@ if "top_p" not in st.session_state:
 
 if "stop_seq" not in st.session_state:
     st.session_state.stop_seq = ""
-    
+
 if "model" not in st.session_state:
     st.session_state.model = "llama-3.1-8b-instant"
 
@@ -88,11 +88,13 @@ if st.session_state.page == "Settings":
     st.session_state.prompt_type = st.selectbox(
         "Prompt Type", ["Zero-Shot", "One-Shot",
                         "Multi-Shot", "Chain-of-Thought (CoT)"],
+
         index=["Zero-Shot", "One-Shot", "Multi-Shot",
                "Chain-of-Thought (CoT)"].index(st.session_state.prompt_type)
     )
     st.session_state.style = st.selectbox(
         "Explanation Style", ["ELI5", "Professional", "Interviewer"],
+
         index=["ELI5", "Professional", "Interviewer"].index(
             st.session_state.style)
     )
@@ -101,10 +103,13 @@ if st.session_state.page == "Settings":
     )
     st.session_state.temperature = st.slider(
         "Temperature", 0.0, 1.0, st.session_state.temperature)
+    
     st.session_state.top_p = st.slider(
         "Top P", 0.0, 1.0, st.session_state.top_p)
+    
     st.session_state.stop_seq = st.text_input(
         "Stop Sequence (optional)", st.session_state.stop_seq)
+    
     st.session_state.model = st.selectbox(
         "Model", ["llama-3.1-8b-instant"], index=0)
 
@@ -118,6 +123,7 @@ else:
     st.title("CodeSage: AI Code Explainer")
 
     # IDE-like text_area for real-time input
+
     code_input = st.text_area(
         "Paste your code here:",
         height=400,
@@ -130,25 +136,31 @@ else:
             st.warning("Please enter some code to explain.")
         else:
             # Build prompt based on settings
+
             if st.session_state.prompt_type == "Zero-Shot":
                 messages = groq_client.zero_shot_prompt(
                     code_input, style=st.session_state.style, depth=st.session_state.depth)
+                
             elif st.session_state.prompt_type == "Chain-of-Thought (CoT)":
                 messages = groq_client.cot_prompt(
                     code_input, style=st.session_state.style, depth=st.session_state.depth)
+                
             else:
                 messages = groq_client.zero_shot_prompt(
                     code_input, style=st.session_state.style, depth=st.session_state.depth)
 
             # Count tokens
+
             tokens = token_logger.log_tokens(code_input)
             st.write(f"Tokens used for input: {tokens}")
 
             # Placeholder for streaming AI output
+
             explanation_placeholder = st.empty()
             full_text = ""
 
             # Call LLM and stream
+
             start_time = time.time()
             try:
                 for chunk in groq_client.call_groq_llm_stream(messages, temperature=st.session_state.temperature, top_p=st.session_state.top_p, stop_sequence=st.session_state.stop_seq):
@@ -159,12 +171,14 @@ else:
                 end_time = time.time()
 
                 # Complexity metrics
+
                 comp = complexity.estimate_complexity(code_input)
                 comp['execution_time_sec'] = round(end_time - start_time, 4)
                 st.subheader("Code Complexity")
                 st.json(comp)
 
                 # Save output
+
                 os.makedirs("output/explanations", exist_ok=True)
                 with open("output/explanations/explanation.json", "w") as f:
                     json.dump({"ai_output": full_text,
